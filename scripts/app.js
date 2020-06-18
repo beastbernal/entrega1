@@ -45,8 +45,7 @@ class HotelForm extends React.Component {
     this.setState(
       {
         hotels: hotelsData,
-      },
-      () => console.log("hotels", this.state.hotels)
+      }
     );
   }
 
@@ -178,6 +177,11 @@ class HotelForm extends React.Component {
           </Row>
         </Container>
         {/* Filters */}
+
+        {/* Cards */}
+        <Cards array={this.state.hotels}></Cards>
+
+        {/* Cards */}
         {/* <Alert variant="success">
           <Alert.Heading>Hey, nice to see you</Alert.Heading>
           <p>

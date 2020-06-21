@@ -7,23 +7,23 @@ const formatDate = (date) =>{
     </span>
   )
 }
-function Header(props) {
+function Header({initial, final}) {
   return (
     <div>
         <Card variant="success" bg="success" text="light">
           <Card.Header as="h1">Hoteles</Card.Header>
           <Card.Body>
             <Card.Text>
-              {!props.initial ? (
-                null
+              {!initial ? (
+                <span> -- </span>
               ) : (
-                <span>Desde el <strong> {formatDate(props.initial)} </strong></span>
+                <span>Desde el <strong> {formatDate(initial)} </strong></span>
               )}
 
-              {!props.final ? (
-                null
+              {!final ? (
+                <span> -- </span>
               ) : (
-                <span>Hasta el <strong> {formatDate(props.final)} </strong></span>
+                <span>Hasta el <strong> {formatDate(final)} </strong></span>
               )}
               {/* //  {props.initial} {props.final} */}
             </Card.Text>

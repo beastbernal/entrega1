@@ -1,12 +1,16 @@
 const CardHotel = ({info}) =>{
-    console.log("info", info);
+    console.debug("info", info);
     return (
         <Card key={info.name + '-card'} border="primary">
         <Card.Img variant="top" src={info.photo} />
         <Card.Body>
             <Card.Title>{info.name}</Card.Title>
             <Card.Text>
-            {info.description}
+            {info.description} - 
+            <br/>
+            {"initial =>" + moment(info.availabilityFrom).format("YYYY-MM-DD") } -
+            <br/>
+            {"final =>" + moment(info.availabilityTo).format("YYYY-MM-DD")} -
             </Card.Text>
             <ListGroup variant="flush">
                 <ListGroup.Item>{info.city}, {info.country}</ListGroup.Item>
@@ -19,7 +23,7 @@ const CardHotel = ({info}) =>{
 }
 
 const Cards = ({array}) => {
-    console.log("hotels", array);
+    console.debug("hotels", array);
     return (<Container>
         <Row>
         {

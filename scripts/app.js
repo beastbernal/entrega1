@@ -1,4 +1,4 @@
-//Clase frincipal mantiene los estados y llama los componentes
+//Clase principal mantiene los estados y llama los componentes
 class HotelForm extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +59,6 @@ class HotelForm extends React.Component {
 
   componentDidMount() {
     let dDay = this.formatStringDate(today);
-    console.log("dDay", dDay);
     this.setState({
       hotels: hotelsData,
       minFirstDate: dDay,
@@ -136,6 +135,10 @@ class HotelForm extends React.Component {
   };
 
   filterItems = (filter) => {
+    let showMessage = false;
+    let titleMessage = "";
+    let message = "";
+
     let arrayFilter = hotelsData.filter(
       (el) =>
         this.filterInitialDate(
@@ -151,8 +154,17 @@ class HotelForm extends React.Component {
         this.filterRooms(el.rooms, filter.rooms) 
     );
     console.log("arrayFilter", arrayFilter);
+    console.log("filter", filter);
+    if(!!arrayFilter && arrayFilter.length === 0){
+      showMessage = true;
+      titleMessage = "No existen hoteles para los filtros seleccionados";
+      message = <WidgetListEmpty filter={filter}/>
+    }
     this.setState({
       hotels: arrayFilter,
+      showMessage: showMessage,
+      titleMessage: titleMessage,
+      message: message
     });
   };
 
@@ -231,35 +243,6 @@ class HotelForm extends React.Component {
     );
   };
 
-  //Captura los cambios de fechas que solo cambian las fechas en el header
-  handleFirstDateChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value }, () => {});
-  };
-
-  //Captura los cambios de los select de filtros de Pais, tamaño y precio
-  handleSelectChange = (event) => {
-    let filterHotels =
-      event.target.value === this.GENERIC_VALUE
-        ? hotelsData
-        : this.filterItems(event.target.id, event.target.value);
-    this.setState({ hotels: filterHotels }, () => {
-      console.debug(this.state.hotels);
-    });
-  };
-
-  handleDayChange = (selectedDay, modifiers, dayPickerInput) => {
-    const input = dayPickerInput.getInput();
-    this.setState({
-      selectedDay,
-      isEmpty: !input.value.trim(),
-      isDisabled: modifiers.disabled === true,
-    });
-  };
-
-  handleSubmit = (event) => {
-    alert("A name was submitted: " + this.state.value);
-    event.preventDefault();
-  };
 
   render() {
     const { selectedDay, isDisabled, isEmpty } = this.state;
@@ -374,31 +357,6 @@ class HotelForm extends React.Component {
         {/* Cards */}
         <Cards array={this.state.hotels}></Cards>
 
-        {/* Cards */}
-        {/* <Alert variant="success">
-          <Alert.Heading>Hey, nice to see you</Alert.Heading>
-          <p>
-            Aww yeah, you successfully read this important alert message. This
-            example text is going to run a bit longer so that you can see how
-            spacing within an alert works with this kind of content.
-          </p>
-          <hr />
-          <p className="mb-0">
-            Whenever you need to, be sure to use margin utilities to keep things
-            nice and tidy.
-          </p>
-        </Alert>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input
-              type="text"
-              value={this.state.value}
-              onChange={this.handleFilterChange}
-            />
-          </label>
-          <input type="submit" value="Submit" />
-        </form> */}
         <ModalMsg
           show={this.state.showMessage}
           title={this.state.titleMessage}

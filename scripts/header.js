@@ -7,6 +7,7 @@ const formatDate = (date) =>{
     </span>
   )
 }
+
 function Header({initial, final}) {
   return (
     <div>

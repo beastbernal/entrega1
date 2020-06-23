@@ -7,17 +7,15 @@ const formatDate = (date) =>{
     </span>
   )
 }
+
 function ModalMsg({title, message, show, handleClose}) {
   return (
-    <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+    <Modal show={show} onHide={handleClose} centered  size="lg">
+        <Modal.Header closeButton className="alert-primary">
         <Modal.Title>{title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{message}</Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-            Cerrar
-        </Button>
         <Button variant="primary" onClick={handleClose}>
             Aceptar
         </Button>
